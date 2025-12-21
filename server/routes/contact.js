@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
+    console.log('Contact form submission received:', req.body);
+    
     const { firstName, lastName, email, subject, message } = req.body;
 
     // Validate input
