@@ -37,6 +37,24 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({ 
+    status: "OK", 
+    message: "Portfolio API Server is running",
+    endpoints: {
+      health: "/api/health",
+      contact: "/api/contact"
+    }
+  });
+});
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Server is running" });
