@@ -17,8 +17,10 @@ function Contact() {
   });
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  // Remove trailing slash if present
+  const baseURL = API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL;
 
-  console.log("API_URL:", API_URL); // Debug log
+  console.log("API_URL:", baseURL); // Debug log
 
   const handleChange = (e) => {
     setFormData({
@@ -37,7 +39,7 @@ function Contact() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
+      const response = await fetch(`${baseURL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
