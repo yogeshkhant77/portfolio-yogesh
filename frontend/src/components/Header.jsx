@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import ThemeSwitch from './ThemeSwitch'
 import './Header.css'
 
@@ -17,45 +18,63 @@ function Header() {
   
   return (
     <>
-      <header className="header">
-        <Link to="/" className="header-left">
-          <div className="logo-circle"></div>
-          <div className="header-name">
-            <span className="name">Yogesh Khant</span>
-            <span className="title"></span>
-          </div>
-        </Link>
+      <motion.header 
+        className="header"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Link to="/" className="header-left">
+            <div className="logo-circle"></div>
+            <div className="header-name">
+              <span className="name">Yogesh Khant</span>
+              <span className="title"></span>
+            </div>
+          </Link>
+        </motion.div>
         <div className="header-center">
           <ThemeSwitch />
         </div>
         <nav className="header-nav">
-          <Link 
-            to="/about" 
-            className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}
-          >
-            About
-          </Link>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/about" 
+              className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}
+            >
+              About
+            </Link>
+          </motion.div>
           <span className="nav-separator">|</span>
-          <Link 
-            to="/projects" 
-            className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}
-          >
-            Projects
-          </Link>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/projects" 
+              className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}
+            >
+              Projects
+            </Link>
+          </motion.div>
           <span className="nav-separator">|</span>
-          <Link 
-            to="/skills" 
-            className={location.pathname === '/skills' ? 'nav-link active' : 'nav-link'}
-          >
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/skills" 
+              className={location.pathname === '/skills' ? 'nav-link active' : 'nav-link'}
+            >
             Skills
           </Link>
+          </motion.div>
           <span className="nav-separator">|</span>
-          <Link 
-            to="/contact" 
-            className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}
-          >
-            Contact
-          </Link>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+            <Link 
+              to="/contact" 
+              className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}
+            >
+              Contact
+            </Link>
+          </motion.div>
         </nav>
         <label className="hamburger">
           <input type="checkbox" checked={isMenuOpen} onChange={toggleMenu} />
@@ -64,7 +83,7 @@ function Header() {
             <path className="line" d="M7 16 27 16"></path>
           </svg>
         </label>
-      </header>
+      </motion.header>
       {isMenuOpen && (
         <div className="mobile-menu-overlay">
           <nav className="mobile-menu">

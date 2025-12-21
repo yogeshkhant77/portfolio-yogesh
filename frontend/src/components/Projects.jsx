@@ -1,8 +1,33 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import './Projects.css'
 
 function Projects() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const projectCardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
   const projects = [
     {
       id: 1,
@@ -57,13 +82,40 @@ function Projects() {
   ]
 
   return (
-    <div className="projects-page">
+    <motion.div 
+      className="projects-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="projects-container">
-        <h1 className="projects-heading">Projects</h1>
+        <motion.h1 
+          className="projects-heading"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          Projects
+        </motion.h1>
         
-        <div className="projects-grid">
+        <motion.div 
+          className="projects-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {projects.map((project) => (
-            <div key={project.id} className="project-card">
+            <motion.div 
+              key={project.id} 
+              className="project-card"
+              variants={projectCardVariants}
+              whileHover={{ 
+                y: -10, 
+                boxShadow: "0 15px 40px rgba(255,165,0,0.3)",
+                transition: { duration: 0.3 }
+              }}
+            >
               <div className="project-image-container">
                 <img 
                   src={project.image} 
@@ -115,17 +167,48 @@ function Projects() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="cta-section">
-          <h2 className="cta-heading">Have a Project in Mind?</h2>
-          <p className="cta-text">I'm always interested in new opportunities and exciting projects.</p>
-          <Link to="/contact" className="cta-button">
-            Let's Work Together
-          </Link>
-        </div>
+        <motion.div 
+          className="cta-section"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.h2 
+            className="cta-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Have a Project in Mind?
+          </motion.h2>
+          <motion.p 
+            className="cta-text"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            I'm always interested in new opportunities and exciting projects.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to="/contact" className="cta-button">
+              Let's Work Together
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

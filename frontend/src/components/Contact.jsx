@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "./Contact.css";
 
 function Contact() {
@@ -85,15 +86,47 @@ function Contact() {
   };
 
   return (
-    <div className="contact-page">
+    <motion.div
+      className="contact-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="contact-container">
-        <div className="contact-content">
-          <div className="contact-info">
-            <h1 className="contact-heading">Contact</h1>
-            <h2 className="contact-subheading">
+        <motion.div
+          className="contact-content"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.div
+            className="contact-info"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <motion.h1
+              className="contact-heading"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              Contact
+            </motion.h1>
+            <motion.h2
+              className="contact-subheading"
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               Looking forward to hearing from you
-            </h2>
-            <div className="contact-details">
+            </motion.h2>
+            <motion.div
+              className="contact-details"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
               <div className="contact-detail-item">
                 <div className="contact-label">Phone</div>
                 <div className="contact-value">9023831416</div>
@@ -102,10 +135,15 @@ function Contact() {
                 <div className="contact-label">Email</div>
                 <div className="contact-value">khantyogesh021@gmail.com</div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="contact-form-container">
+          <motion.div
+            className="contact-form-container"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
@@ -180,10 +218,10 @@ function Contact() {
                 {isSubmitting ? "Sending..." : "Submit"}
               </button>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

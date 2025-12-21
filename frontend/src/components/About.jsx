@@ -1,33 +1,91 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import './About.css'
 
 function About() {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.7, ease: "easeOut" }
+    }
+  };
+
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.7, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
   return (
-    <div className="about-page">
+    <motion.div 
+      className="about-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="about-container">
-        <section className="about-section">
-          <h1 className="about-heading">About Me</h1>
+        <motion.section 
+          className="about-section"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h1 className="about-heading" variants={fadeInUp}>About Me</motion.h1>
           <div className="about-section-content">
-            <div className="about-content">
-              <p className="about-text">
+            <motion.div className="about-content" variants={fadeInLeft}>
+              <motion.p className="about-text" variants={fadeInUp}>
                 I'm an intermediate full-stack developer with a B.Tech in Computer Engineering, focused on building modern web applications using React, Node.js, and MongoDB. I'm passionate about creating seamless user experiences and scalable backend solutions.
-              </p>
-              <p className="about-text">
+              </motion.p>
+              <motion.p className="about-text" variants={fadeInUp}>
                 Alongside web development, I have a strong interest in machine learning, data analysis, data structures, and exploring emerging technologies in the AI space.
-              </p>
-            </div>
-            <div className="about-photo-container">
-              <img 
+              </motion.p>
+            </motion.div>
+            <motion.div className="about-photo-container" variants={fadeInRight}>
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }} 
                 src="Yogesh_Khant.png" 
                 alt="Yogesh Khant"
                 className="about-photo"
               />
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="contact-info-section">
-          <h2 className="section-heading">Location & Contact</h2>
+        <motion.section 
+          className="contact-info-section"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2 className="section-heading" variants={fadeInUp}>Location & Contact</motion.h2>
           <div className="contact-info-content">
             <p className="location">Malpur, Arvalli, Gujarat, India</p>
             <p className="contact-item">
@@ -54,10 +112,16 @@ function About() {
             </div>
             <p className="name-signature">Yogesh Khant</p>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="education-section">
-          <h2 className="section-heading">Education</h2>
+        <motion.section 
+          className="education-section"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h2 className="section-heading" variants={fadeInUp}>Education</motion.h2>
           
           <div className="education-item">
             <div className="education-header">
