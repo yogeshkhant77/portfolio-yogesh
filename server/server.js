@@ -45,13 +45,13 @@ app.use((req, res, next) => {
 
 // Root endpoint
 app.get("/", (req, res) => {
-  res.json({ 
-    status: "OK", 
+  res.json({
+    status: "OK",
     message: "Portfolio API Server is running",
     endpoints: {
       health: "/api/health",
-      contact: "/api/contact"
-    }
+      contact: "/api/contact",
+    },
   });
 });
 
