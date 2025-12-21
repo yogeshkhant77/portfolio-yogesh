@@ -7,7 +7,7 @@ function Home() {
     <main className="main-content">
       <div className="image-container">
         <div className="circular-image">
-          <img src="/yogesh_Khant.png" alt="Yogesh Khant" />
+          <img src="/Yogesh_Khant.png" alt="Yogesh Khant" />
         </div>
       </div>
       <div className="content-section">
