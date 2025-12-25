@@ -81,7 +81,7 @@ function About() {
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
-                src="Yogesh_Khant.png"
+                src="/yk_007.JPG"
                 alt="Yogesh Khant"
                 className="about-photo"
               />
