@@ -60,6 +60,48 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "Server is running" });
 });
 
+// Test Resend API connectivity
+app.get("/api/test-email", async (req, res) => {
+  console.log("🧪 Testing Resend API...");
+  try {
+    if (!process.env.RESEND_API_KEY) {
+      return res.status(400).json({
+        success: false,
+        error: "RESEND_API_KEY not set",
+      });
+    }
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: process.env.EMAIL || "onboarding@resend.dev",
+        to: process.env.RECEIVER_EMAIL || "khantyogesh021@gmail.com",
+        subject: "Test Email from Portfolio",
+        html: "<p>This is a test email</p>",
+      }),
+    });
+
+    const result = await response.json();
+    console.log("Resend API Response:", result);
+
+    res.json({
+      status: response.status,
+      success: response.ok,
+      data: result,
+    });
+  } catch (error) {
+    console.error("Test error:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
 // Routes
 app.use("/api/contact", contactRouter);
 

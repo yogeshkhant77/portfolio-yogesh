@@ -6,11 +6,12 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    console.log("Contact form submission received:", req.body);
+    console.log("✉️ Contact form submission received:", req.body);
 
     const { firstName, lastName, email, subject, message } = req.body;
 
     // Validate input
+    console.log("🔍 Validating contact form...");
     const validation = validateContactForm({
       firstName,
       lastName,
@@ -20,6 +21,7 @@ router.post("/", async (req, res) => {
     });
 
     if (!validation.isValid) {
+      console.warn("❌ Validation failed:", validation.errors);
       return res.status(400).json({
         success: false,
         message: "Validation failed",
@@ -27,7 +29,10 @@ router.post("/", async (req, res) => {
       });
     }
 
+    console.log("✅ Validation passed");
+
     // Send email
+    console.log("📤 Calling sendContactEmail...");
     const emailResult = await sendContactEmail({
       firstName,
       lastName,
@@ -36,16 +41,24 @@ router.post("/", async (req, res) => {
       message,
     });
 
+    console.log("📬 Email service response:", emailResult);
+
     if (emailResult.success) {
+      console.log("✅ SUCCESS - Email sent successfully!");
       res.status(200).json({
         success: true,
         message: "Email sent successfully!",
       });
     } else {
-      throw new Error(emailResult.error || "Failed to send email");
+      console.error("❌ Email send failed:", emailResult.error);
+      return res.status(500).json({
+        success: false,
+        message: emailResult.error || "Failed to send email",
+      });
     }
   } catch (error) {
-    console.error("Contact form error:", error);
+    console.error("❌ Contact form error:", error.message);
+    console.error("   Stack:", error.stack);
     res.status(500).json({
       success: false,
       message: "Failed to send email. Please try again later.",
