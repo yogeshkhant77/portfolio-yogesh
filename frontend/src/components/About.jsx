@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./About.css";
+import mobileSvg from "../../mobile.svg";
 
 function About() {
   const fadeInUp = {
@@ -102,7 +103,20 @@ function About() {
           <div className="contact-info-content">
             <p className="location">Malpur, Arvalli, Gujarat, India</p>
             <p className="contact-item">
-              <span className="contact-icon">📧</span>
+              <span className="contact-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
               <a
                 href="mailto:khantyogesh021@gmail.com"
                 className="contact-link"
@@ -111,7 +125,9 @@ function About() {
               </a>
             </p>
             <p className="contact-item">
-              <span className="contact-icon">📱</span>
+              <span className="contact-icon">
+                <img src={mobileSvg} alt="Mobile" width="20" height="20" />
+              </span>
               <a href="tel:+919023831416" className="contact-link">
                 +91 9023831416
               </a>
