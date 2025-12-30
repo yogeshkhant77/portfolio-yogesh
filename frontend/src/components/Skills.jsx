@@ -62,7 +62,18 @@ function Skills() {
     },
     {
       title: "Tools",
-      skills: ["Git", "Postman", "VS Code", "Firebase", "Jupyter Notebook"],
+      skills: [
+        "Git",
+        "Postman",
+        "VS Code",
+        "Firebase",
+        "Jupyter Notebook",
+        "Jira",
+      ],
+    },
+    {
+      title: "Deployment & Hosting",
+      skills: ["Vercel", "Render", "Environment Variables"],
     },
   ];
 
