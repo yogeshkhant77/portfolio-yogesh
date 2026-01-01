@@ -75,6 +75,16 @@ function Skills() {
       title: "Deployment & Hosting",
       skills: ["Vercel", "Render", "Environment Variables"],
     },
+    {
+      title: "Soft Skills",
+      skills: [
+        "Communication",
+        "Problem Solving",
+        "Teamwork & Collaboration",
+        "Attention to Detail",
+        "Adaptability",
+      ],
+    },
   ];
 
   return (
