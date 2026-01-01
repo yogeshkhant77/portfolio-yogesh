@@ -37,7 +37,7 @@ function Header() {
           <ThemeSwitch />
         </div>
         <nav className="header-nav">
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
             <Link
               to="/about"
               className={
@@ -45,10 +45,11 @@ function Header() {
               }
             >
               About
+              <span className="nav-underline"></span>
             </Link>
           </motion.div>
           <span className="nav-separator">|</span>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
             <Link
               to="/projects"
               className={
@@ -58,10 +59,11 @@ function Header() {
               }
             >
               Projects
+              <span className="nav-underline"></span>
             </Link>
           </motion.div>
           <span className="nav-separator">|</span>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
             <Link
               to="/skills"
               className={
@@ -69,10 +71,11 @@ function Header() {
               }
             >
               Skills
+              <span className="nav-underline"></span>
             </Link>
           </motion.div>
           <span className="nav-separator">|</span>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+          <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
             <Link
               to="/contact"
               className={
@@ -82,6 +85,7 @@ function Header() {
               }
             >
               Contact
+              <span className="nav-underline"></span>
             </Link>
           </motion.div>
         </nav>
