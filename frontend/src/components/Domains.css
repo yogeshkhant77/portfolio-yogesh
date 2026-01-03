@@ -1,0 +1,279 @@
+.domains-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Page Intro */
+.domains-intro {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.domains-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.domains-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary, #666);
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* Dark Mode Support */
+:root.dark-mode .domains-description {
+  color: var(--text-secondary, #aaa);
+}
+
+/* Domains Grid */
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+/* Domain Card */
+.domain-card {
+  background: var(--card-bg, #ffffff);
+  border-radius: 15px;
+  padding: 35px 25px;
+  border: 1px solid var(--border-color, #e0e0e0);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.domain-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.domain-card:hover::before {
+  transform: scaleX(1);
+}
+
+.domain-card:hover {
+  border-color: #667eea;
+  background: var(--card-bg-hover, #f9f9f9);
+}
+
+/* Dark Mode Card */
+[data-theme='dark'] .domain-card {
+  background: #000000;
+  border: 1px solid #2a3f5f;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='dark'] .domain-card:hover {
+  background: #1a1a1a;
+  border-color: #667eea;
+  box-shadow: 0 15px 50px rgba(102, 126, 234, 0.15);
+}
+
+/* Dark Mode Card Text */
+[data-theme='dark'] .card-title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .card-description {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .card-skills {
+  border-top-color: #2a3f5f;
+}
+
+[data-theme='dark'] .skills-label {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .skills-list li {
+  color: #ffffff;
+}
+
+/* Card Icon */
+.card-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary, #000);
+  margin: 10px 0 0 0;
+  line-height: 1.3;
+}
+
+:root.dark-mode .card-title {
+  color: var(--text-primary, #fff);
+}
+
+/* Card Description */
+.card-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #555);
+  margin: 10px 0 0 0;
+  flex-grow: 1;
+}
+
+:root.dark-mode .card-description {
+  color: var(--text-secondary, #bbb);
+}
+
+/* Skills Section */
+.card-skills {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+}
+
+.skills-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #667eea;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skills-list li {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+  padding-left: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+:root.dark-mode .skills-list li {
+  color: var(--text-secondary, #aaa);
+}
+
+.skills-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.skills-list li:hover {
+  color: #667eea;
+  transform: translateX(3px);
+}
+
+:root.dark-mode .skills-list li:hover {
+  color: #764ba2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .domains-section {
+    padding: 40px 15px;
+  }
+
+  .domains-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .domains-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 40px;
+  }
+
+  .domain-card {
+    padding: 25px 20px;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .domains-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .domains-title {
+    font-size: 2rem;
+  }
+
+  .domain-card {
+    padding: 20px 15px;
+    gap: 12px;
+  }
+
+  .card-icon {
+    font-size: 2.2rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+  }
+
+  .skills-label {
+    font-size: 0.8rem;
+  }
+
+  .skills-list li {
+    font-size: 0.85rem;
+  }
+}

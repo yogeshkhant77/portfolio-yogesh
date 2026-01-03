@@ -77,6 +77,20 @@ function Header() {
           <span className="nav-separator">|</span>
           <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
             <Link
+              to="/domains"
+              className={
+                location.pathname === "/domains"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Domains
+              <span className="nav-underline"></span>
+            </Link>
+          </motion.div>
+          <span className="nav-separator">|</span>
+          <motion.div whileTap={{ scale: 0.95 }} className="nav-link-wrapper">
+            <Link
               to="/contact"
               className={
                 location.pathname === "/contact"
@@ -117,12 +131,22 @@ function Header() {
               Skills
             </Link>
             <Link
+              to="/domains"
+              className="mobile-menu-link"
+              onClick={closeMenu}
+            >
+              Domains
+            </Link>
+            <Link
               to="/contact"
               className="mobile-menu-link"
               onClick={closeMenu}
             >
               Contact
             </Link>
+            <div className="mobile-menu-theme">
+              <ThemeSwitch />
+            </div>
           </nav>
         </div>
       )}

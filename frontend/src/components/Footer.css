@@ -83,6 +83,17 @@
   height: 24px;
 }
 
+.social-icon img {
+  width: 24px;
+  height: 24px;
+  filter: invert(0);
+  transition: filter 0.3s;
+}
+
+[data-theme='dark'] .social-icon img {
+  filter: invert(1);
+}
+
 .copyright {
   font-size: 14px;
   color: #000;
