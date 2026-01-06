@@ -81,7 +81,7 @@ function Skills() {
         "Communication",
         "Problem Solving",
         "Teamwork & Collaboration",
-        "Attention to Detail",
+        "Agile Methodologies",
         "Adaptability",
       ],
     },
