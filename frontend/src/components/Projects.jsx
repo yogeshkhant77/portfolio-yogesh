@@ -138,7 +138,7 @@ function Projects() {
       name: "ET-24 Expense Tracker",
       description:
         "A comprehensive expense tracking application that helps users manage and track their spending. Built with a modern tech stack including React for the frontend and Node.js with Express for the backend. Implements secure JWT-based authentication and bcrypt password hashing for user security. MongoDB Atlas is used for reliable cloud database storage. Features include expense categorization, budgeting, and financial insights.",
-      image: "/expense-tracker.jpg",
+      image: "/et24.jpg",
       technologies: [
         "React.js",
         "Node.js",
