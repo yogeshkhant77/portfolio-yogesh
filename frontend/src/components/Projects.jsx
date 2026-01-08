@@ -133,6 +133,23 @@ function Projects() {
       githubLink: "https://github.com/yogeshkhant77/Kilangi",
       visitLink: "https://kilangi-yk.vercel.app/",
     },
+    {
+      id: 7,
+      name: "ET-24 Expense Tracker",
+      description:
+        "A comprehensive expense tracking application that helps users manage and track their spending. Built with a modern tech stack including React for the frontend and Node.js with Express for the backend. Implements secure JWT-based authentication and bcrypt password hashing for user security. MongoDB Atlas is used for reliable cloud database storage. Features include expense categorization, budgeting, and financial insights.",
+      image: "/expense-tracker.jpg",
+      technologies: [
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB Atlas",
+        "JWT",
+        "bcrypt",
+      ],
+      githubLink: "https://github.com/yogeshkhant77/ET24",
+      visitLink: "https://et-24.vercel.app/",
+    },
   ];
 
   return (
