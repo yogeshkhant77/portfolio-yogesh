@@ -82,6 +82,7 @@ function Projects() {
       ],
       githubLink:
         "https://github.com/yogeshkhant77/Movie-Dialogue-Emotion-Analyzer-and-Character-Dashboard",
+      visitLink: "https://moviesentimentyk.streamlit.app/",
     },
     {
       id: 4,
