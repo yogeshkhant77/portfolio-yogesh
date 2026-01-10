@@ -34,7 +34,13 @@ function Domains() {
 
   const domains = [
     {
-      icon: "🌐",
+      icon: (
+        <img
+          src="/frontend.gif"
+          alt="Frontend Development"
+          style={{ width: "2em", height: "2em", objectFit: "contain" }}
+        />
+      ),
       title: "Frontend Development",
       description:
         "I specialize in building responsive and user-friendly interfaces with a strong focus on clean design, usability, and performance. I enjoy converting ideas and designs into interactive web experiences.",
@@ -46,7 +52,13 @@ function Domains() {
       ],
     },
     {
-      icon: "⚙️",
+      icon: (
+        <img
+          src="/backend.gif"
+          alt="Backend Development"
+          style={{ width: "2em", height: "2em", objectFit: "contain" }}
+        />
+      ),
       title: "Backend Development",
       description:
         "I develop secure and scalable backend systems that handle application logic, authentication, and data management while ensuring smooth communication with the frontend.",
@@ -58,7 +70,13 @@ function Domains() {
       ],
     },
     {
-      icon: "🔄",
+      icon: (
+        <img
+          src="/fullstack.gif"
+          alt="Full Stack Development"
+          style={{ width: "2em", height: "2em", objectFit: "contain" }}
+        />
+      ),
       title: "Full Stack Development (MERN)",
       description:
         "As a MERN Stack developer, I build complete end-to-end web applications by integrating frontend, backend, and database layers into a single scalable solution.",
@@ -71,7 +89,13 @@ function Domains() {
       ],
     },
     {
-      icon: "🤖",
+      icon: (
+        <img
+          src="/aiml.gif"
+          alt="AI & ML"
+          style={{ width: "2em", height: "2em", objectFit: "contain" }}
+        />
+      ),
       title: "AI & Machine Learning",
       description:
         "I work on AI and Machine Learning projects focused on solving real-world problems using data-driven approaches. My experience includes data preprocessing, model training, and evaluation.",
@@ -84,7 +108,13 @@ function Domains() {
       ],
     },
     {
-      icon: "🧪",
+      icon: (
+        <img
+          src="/qa-engineer.gif"
+          alt="QA Engineer"
+          style={{ width: "2em", height: "2em", objectFit: "contain" }}
+        />
+      ),
       title: "QA Engineer (Manual + Basic Automation)",
       description:
         "I have a foundational understanding of software testing with hands-on experience in manual testing. I focus on identifying defects, writing test cases, and ensuring software quality across applications.",
