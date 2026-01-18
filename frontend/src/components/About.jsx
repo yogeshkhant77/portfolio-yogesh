@@ -1,9 +1,126 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import "./About.css";
 import mobileSvg from "../../mobile.svg";
 
 function About() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let stars = [];
+    let mouse = { x: null, y: null };
+
+    // Set canvas size
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      initStars();
+    };
+
+    // Initialize stars
+    const initStars = () => {
+      stars = [];
+      const numStars = 150;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 0.5,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          originalX: 0,
+          originalY: 0,
+        });
+        stars[i].originalX = stars[i].x;
+        stars[i].originalY = stars[i].y;
+      }
+    };
+
+    // Mouse move handler
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = null;
+      mouse.y = null;
+    };
+
+    // Animation loop
+    const animate = () => {
+      // Check theme
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw stars
+      stars.forEach((star) => {
+        // Mouse interaction
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - star.x;
+          const dy = mouse.y - star.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const maxDistance = 100;
+
+          if (distance < maxDistance) {
+            const force = (maxDistance - distance) / maxDistance;
+            star.x -= (dx / distance) * force * 3;
+            star.y -= (dy / distance) * force * 3;
+          }
+        }
+
+        // Slow drift back to original position
+        star.x += (star.originalX - star.x) * 0.05;
+        star.y += (star.originalY - star.y) * 0.05;
+
+        // Slow movement
+        star.x += star.vx;
+        star.y += star.vy;
+
+        // Update original position for drift
+        star.originalX += star.vx;
+        star.originalY += star.vy;
+
+        // Wrap around edges
+        if (star.originalX < 0) star.originalX = canvas.width;
+        if (star.originalX > canvas.width) star.originalX = 0;
+        if (star.originalY < 0) star.originalY = canvas.height;
+        if (star.originalY > canvas.height) star.originalY = 0;
+
+        // Draw star
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)';
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Initialize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
+    animate();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -49,6 +166,7 @@ function About() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <canvas ref={canvasRef} className="starfield-canvas"></canvas>
       <div className="about-container">
         <motion.section
           className="about-section"
