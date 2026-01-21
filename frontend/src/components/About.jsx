@@ -10,7 +10,7 @@ function About() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     let animationFrameId;
     let stars = [];
     let mouse = { x: null, y: null };
@@ -56,8 +56,9 @@ function About() {
     // Animation loop
     const animate = () => {
       // Check theme
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      
+      const isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -98,7 +99,9 @@ function About() {
         // Draw star
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)';
+        ctx.fillStyle = isDark
+          ? "rgba(255, 255, 255, 0.8)"
+          : "rgba(0, 0, 0, 0.6)";
         ctx.fill();
       });
 
@@ -107,16 +110,16 @@ function About() {
 
     // Initialize
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener("resize", resizeCanvas);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
     animate();
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -319,7 +322,7 @@ function About() {
               G H Patel College of Engineering and Technology
             </p>
             <p className="education-location">Anand, Gujarat</p>
-            <p className="education-grade">GPA: 8.38 / 10</p>
+            <p className="education-grade">GPA: 8.64 / 10</p>
           </div>
 
           <div className="education-item">
