@@ -1,24 +1,8 @@
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Create transporter with explicit Gmail SMTP settings
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.APP_PASSWORD,
-    },
-    connectionTimeout: 10000, // 10 seconds
-    socketTimeout: 10000, // 10 seconds
-  });
-};
-
-// Send contact form email using nodemailer
+// Send contact form email using Resend API
 export const sendContactEmail = async ({
   firstName,
   lastName,
@@ -31,17 +15,17 @@ export const sendContactEmail = async ({
 
     // Validate environment variables
     console.log("📋 Checking environment variables...");
+    if (!process.env.RESEND_API_KEY) {
+      console.error("❌ Missing RESEND_API_KEY");
+      throw new Error("RESEND_API_KEY not configured");
+    }
+    console.log("✅ RESEND_API_KEY found");
+
     if (!process.env.EMAIL) {
       console.error("❌ Missing EMAIL:", process.env.EMAIL);
       throw new Error("EMAIL not configured");
     }
     console.log("✅ EMAIL found:", process.env.EMAIL);
-
-    if (!process.env.APP_PASSWORD) {
-      console.error("❌ Missing APP_PASSWORD");
-      throw new Error("APP_PASSWORD not configured");
-    }
-    console.log("✅ APP_PASSWORD found");
 
     if (!process.env.RECEIVER_EMAIL) {
       console.error("❌ Missing RECEIVER_EMAIL");
@@ -76,57 +60,69 @@ export const sendContactEmail = async ({
       </div>
     `;
 
-    console.log("📧 Creating Gmail transporter...");
-    const transporter = createTransporter();
+    console.log("📧 Sending via Resend API...");
 
-    console.log("🔗 Verifying transporter connection...");
-    await transporter.verify();
-    console.log("✅ Transporter verified successfully");
+    // Create abort controller for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-    const mailOptions = {
-      from: `"${firstName} ${lastName}" <${process.env.EMAIL}>`,
-      to: process.env.RECEIVER_EMAIL,
-      replyTo: email,
-      subject: `Portfolio Contact: ${subject}`,
-      html: html,
-    };
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: process.env.EMAIL,
+          to: process.env.RECEIVER_EMAIL,
+          replyTo: email,
+          subject: `Portfolio Contact: ${subject}`,
+          html: html,
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
 
-    console.log("📤 Sending email with options:", {
-      from: mailOptions.from,
-      to: mailOptions.to,
-      subject: mailOptions.subject,
-    });
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("❌ Resend API Error:", errorData);
+        throw new Error(errorData.message || "Failed to send email via Resend");
+      }
 
-    const info = await transporter.sendMail(mailOptions);
+      const info = await response.json();
 
-    console.log("✅ Email sent successfully!");
-    console.log("   Message ID:", info.messageId);
-    console.log("   Response:", info.response);
+      console.log("✅ Email sent successfully!");
+      console.log("   Message ID:", info.id);
 
-    return {
-      success: true,
-      messageId: info.messageId,
-    };
+      return {
+        success: true,
+        messageId: info.id,
+      };
+    } finally {
+      clearTimeout(timeoutId);
+    }
   } catch (error) {
     console.error("❌ EMAIL SERVICE ERROR");
-    console.error("   Error Code:", error.code);
     console.error("   Error Message:", error.message);
     console.error("   Full Error:", JSON.stringify(error, null, 2));
 
     let errorMessage = "Failed to send email";
 
-    if (error.code === "EAUTH" || error.message.includes("Invalid login")) {
-      errorMessage =
-        "Gmail login failed. Check EMAIL and APP_PASSWORD are correct. Use App Password, not regular password.";
-    } else if (error.code === "ECONNECTION") {
-      errorMessage =
-        "Cannot connect to Gmail server. Check internet connection.";
+    if (error.name === "AbortError") {
+      errorMessage = "Email service connection timeout - please try again";
+    } else if (error.message.includes("RESEND_API_KEY")) {
+      errorMessage = "Resend API key not configured in .env file";
     } else if (error.message.includes("EMAIL")) {
       errorMessage = "EMAIL not configured in .env file";
-    } else if (error.message.includes("APP_PASSWORD")) {
-      errorMessage = "APP_PASSWORD not configured in .env file";
     } else if (error.message.includes("RECEIVER_EMAIL")) {
       errorMessage = "RECEIVER_EMAIL not configured in .env file";
+    } else if (
+      error.message.includes("fetch") ||
+      error.code === "ECONNREFUSED"
+    ) {
+      errorMessage =
+        "Network error: Unable to connect to email service. Check your internet connection.";
     } else {
       errorMessage = error.message;
     }
